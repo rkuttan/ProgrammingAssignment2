@@ -15,16 +15,20 @@
 makeCacheMatrix <- function(x = matrix()) {
    
   inverse <- NULL
-   
-   setMatrix <- function(y) {
-         x <<- y
-         inverse <<- NULL
+   #set the matrix that needs to be inversed   
+   setMatrix <- function(y) {         
+           x <<- y
+           inverse <<- NULL     
+         
    }
-   
+  
+   #get the matrix whose inverse is to be computed
    getMatrix <- function() x
    
+  #set the inverse of the matrix to cache
    setInverse <- function(inv) inverse <<- inv
    
+  #fech the inverse of the matrix
    getInverse <- function() inverse
    
    list(setMatrix=setMatrix, 
@@ -37,10 +41,10 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Write a short comment describing this function
 ## Compute the inverse of a square matrix. If the inverse
 ## is already computed, then return it from the cache.
-cacheSolve <- function(x, ...) {
+cacheSolve <- function(struct, ...) {
         ## Return a matrix that is the inverse of 'x'
-        inverse <- x$getInverse()
-        data <- x$getMatrix()
+        inverse <- struct$getInverse()
+        data <- struct$getMatrix()
         
         ## Check if the inverse is not null 
         ## and the matrix to be inversed is
@@ -55,6 +59,7 @@ cacheSolve <- function(x, ...) {
         
         message("Computing inverse")
         inverse <- solve(data)
-        x$setInverse(inverse)
+        struct$setInverse(inverse)
         inverse
 }
+
